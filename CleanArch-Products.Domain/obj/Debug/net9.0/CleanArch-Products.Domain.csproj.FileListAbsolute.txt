@@ -1,0 +1,11 @@
+E:\code\clean-arch\CleanArch-Products.Domain\bin\Debug\net9.0\CleanArch-Products.Domain.deps.json
+E:\code\clean-arch\CleanArch-Products.Domain\bin\Debug\net9.0\CleanArch-Products.Domain.dll
+E:\code\clean-arch\CleanArch-Products.Domain\bin\Debug\net9.0\CleanArch-Products.Domain.pdb
+E:\code\clean-arch\CleanArch-Products.Domain\obj\Debug\net9.0\CleanArch-Products.Domain.GeneratedMSBuildEditorConfig.editorconfig
+E:\code\clean-arch\CleanArch-Products.Domain\obj\Debug\net9.0\CleanArch-Products.Domain.AssemblyInfoInputs.cache
+E:\code\clean-arch\CleanArch-Products.Domain\obj\Debug\net9.0\CleanArch-Products.Domain.AssemblyInfo.cs
+E:\code\clean-arch\CleanArch-Products.Domain\obj\Debug\net9.0\CleanArch-Products.Domain.csproj.CoreCompileInputs.cache
+E:\code\clean-arch\CleanArch-Products.Domain\obj\Debug\net9.0\CleanArch-Products.Domain.dll
+E:\code\clean-arch\CleanArch-Products.Domain\obj\Debug\net9.0\refint\CleanArch-Products.Domain.dll
+E:\code\clean-arch\CleanArch-Products.Domain\obj\Debug\net9.0\CleanArch-Products.Domain.pdb
+E:\code\clean-arch\CleanArch-Products.Domain\obj\Debug\net9.0\ref\CleanArch-Products.Domain.dll

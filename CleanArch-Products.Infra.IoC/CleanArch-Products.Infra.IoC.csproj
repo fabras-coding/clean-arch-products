@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\CleanArch-Products.Domain\CleanArch-Products.Domain.csproj" />
+    <ProjectReference Include="..\CleanArch-Products.Application\CleanArch-Products.Application.csproj" />
+    <ProjectReference Include="..\CleanArch-Products.Infra.Data\CleanArch-Products.Infra.Data.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <RootNamespace>CleanArch_Products.Infra.IoC</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

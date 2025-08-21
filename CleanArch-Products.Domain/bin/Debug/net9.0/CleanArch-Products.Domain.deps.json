@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "CleanArch-Products.Domain/1.0.0": {
+        "runtime": {
+          "CleanArch-Products.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "CleanArch-Products.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

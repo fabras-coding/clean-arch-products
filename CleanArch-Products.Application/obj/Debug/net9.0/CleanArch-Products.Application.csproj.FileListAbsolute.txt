@@ -1,0 +1,15 @@
+E:\code\clean-arch\CleanArch-Products.Application\bin\Debug\net9.0\CleanArch-Products.Application.deps.json
+E:\code\clean-arch\CleanArch-Products.Application\bin\Debug\net9.0\CleanArch-Products.Application.dll
+E:\code\clean-arch\CleanArch-Products.Application\bin\Debug\net9.0\CleanArch-Products.Application.pdb
+E:\code\clean-arch\CleanArch-Products.Application\obj\Debug\net9.0\CleanArch-Products.Application.GeneratedMSBuildEditorConfig.editorconfig
+E:\code\clean-arch\CleanArch-Products.Application\obj\Debug\net9.0\CleanArch-Products.Application.AssemblyInfoInputs.cache
+E:\code\clean-arch\CleanArch-Products.Application\obj\Debug\net9.0\CleanArch-Products.Application.AssemblyInfo.cs
+E:\code\clean-arch\CleanArch-Products.Application\obj\Debug\net9.0\CleanArch-Products.Application.csproj.CoreCompileInputs.cache
+E:\code\clean-arch\CleanArch-Products.Application\obj\Debug\net9.0\CleanArch-Products.Application.dll
+E:\code\clean-arch\CleanArch-Products.Application\obj\Debug\net9.0\refint\CleanArch-Products.Application.dll
+E:\code\clean-arch\CleanArch-Products.Application\obj\Debug\net9.0\CleanArch-Products.Application.pdb
+E:\code\clean-arch\CleanArch-Products.Application\obj\Debug\net9.0\ref\CleanArch-Products.Application.dll
+E:\code\clean-arch\CleanArch-Products.Application\bin\Debug\net9.0\CleanArch-Products.Domain.dll
+E:\code\clean-arch\CleanArch-Products.Application\bin\Debug\net9.0\CleanArch-Products.Domain.pdb
+E:\code\clean-arch\CleanArch-Products.Application\obj\Debug\net9.0\CleanArch-Products.Application.csproj.AssemblyReference.cache
+E:\code\clean-arch\CleanArch-Products.Application\obj\Debug\net9.0\CleanArc.079EE0C7.Up2Date

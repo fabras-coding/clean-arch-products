@@ -1,0 +1,147 @@
+{
+  "version": 3,
+  "targets": {
+    "net9.0": {
+      "CleanArch-Products.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "CleanArch-Products.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/CleanArch-Products.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CleanArch-Products.Application.dll": {}
+        }
+      },
+      "CleanArch-Products.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/CleanArch-Products.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CleanArch-Products.Domain.dll": {}
+        }
+      },
+      "CleanArch-Products.Infra.Data/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "CleanArch-Products.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/CleanArch-Products.Infra.Data.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CleanArch-Products.Infra.Data.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "CleanArch-Products.Application/1.0.0": {
+      "type": "project",
+      "path": "../CleanArch-Products.Application/CleanArch-Products.Application.csproj",
+      "msbuildProject": "../CleanArch-Products.Application/CleanArch-Products.Application.csproj"
+    },
+    "CleanArch-Products.Domain/1.0.0": {
+      "type": "project",
+      "path": "../CleanArch-Products.Domain/CleanArch-Products.Domain.csproj",
+      "msbuildProject": "../CleanArch-Products.Domain/CleanArch-Products.Domain.csproj"
+    },
+    "CleanArch-Products.Infra.Data/1.0.0": {
+      "type": "project",
+      "path": "../CleanArch-Products.Infra.Data/CleanArch-Products.Infra.Data.csproj",
+      "msbuildProject": "../CleanArch-Products.Infra.Data/CleanArch-Products.Infra.Data.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net9.0": [
+      "CleanArch-Products.Application >= 1.0.0",
+      "CleanArch-Products.Domain >= 1.0.0",
+      "CleanArch-Products.Infra.Data >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\Fabri\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "E:\\code\\clean-arch\\CleanArch-Products.Infra.IoC\\CleanArch-Products.Infra.IoC.csproj",
+      "projectName": "CleanArch-Products.Infra.IoC",
+      "projectPath": "E:\\code\\clean-arch\\CleanArch-Products.Infra.IoC\\CleanArch-Products.Infra.IoC.csproj",
+      "packagesPath": "C:\\Users\\Fabri\\.nuget\\packages\\",
+      "outputPath": "E:\\code\\clean-arch\\CleanArch-Products.Infra.IoC\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\Fabri\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net9.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "projectReferences": {
+            "E:\\code\\clean-arch\\CleanArch-Products.Application\\CleanArch-Products.Application.csproj": {
+              "projectPath": "E:\\code\\clean-arch\\CleanArch-Products.Application\\CleanArch-Products.Application.csproj"
+            },
+            "E:\\code\\clean-arch\\CleanArch-Products.Domain\\CleanArch-Products.Domain.csproj": {
+              "projectPath": "E:\\code\\clean-arch\\CleanArch-Products.Domain\\CleanArch-Products.Domain.csproj"
+            },
+            "E:\\code\\clean-arch\\CleanArch-Products.Infra.Data\\CleanArch-Products.Infra.Data.csproj": {
+              "projectPath": "E:\\code\\clean-arch\\CleanArch-Products.Infra.Data\\CleanArch-Products.Infra.Data.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "9.0.300"
+    },
+    "frameworks": {
+      "net9.0": {
+        "targetAlias": "net9.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
