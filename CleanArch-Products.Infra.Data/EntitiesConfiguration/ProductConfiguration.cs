@@ -20,6 +20,13 @@ namespace CleanArch_Products.Infra.Data.EntitiesConfiguration
                 .IsRequired()
                 .HasMaxLength(200);
 
+            builder.Property(p => p.Description)
+                .IsRequired().HasMaxLength(1000)
+                .HasDefaultValue("No description");
+
+            builder.Property(p => p.Image)
+            .HasMaxLength(255);
+
             builder.Property(p => p.Price)
                 .IsRequired()
                 .HasPrecision(10, 2);
