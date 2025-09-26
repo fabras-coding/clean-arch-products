@@ -2,11 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CleanArch_Products.Application.Interfaces;
+using CleanArch_Products.Application.Mappings;
+using CleanArch_Products.Application.Services;
 using CleanArch_Products.Domain.Interfaces;
 using CleanArch_Products.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
+
 
 namespace CleanArch_Products.Infra.IoC
 {
@@ -22,6 +27,11 @@ namespace CleanArch_Products.Infra.IoC
 
             services.AddScoped<IProductRepository, Data.Repositories.ProductRepository>();
             services.AddScoped<ICategoryRepository, Data.Repositories.CategoryRepository>();
+
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
+
 
             return services;
         }
