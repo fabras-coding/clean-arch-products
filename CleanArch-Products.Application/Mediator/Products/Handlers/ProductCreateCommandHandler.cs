@@ -19,7 +19,7 @@ namespace CleanArch_Products.Application.Mediator.Products.Handlers
 
         public async Task<Product> Handle(ProductCreateCommand request, CancellationToken cancellationToken)
         {
-            var product = new Product(request.Name, request.Description, request.Price, request.Stock, request.Image);
+            var product = new Product(request.Name, request.Description, request.Price, request.Stock, request.Image, request.CategoryId);
 
             if (product == null)
             {

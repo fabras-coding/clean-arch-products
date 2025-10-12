@@ -9,15 +9,23 @@ namespace CleanArch_Products.Domain.Entities
 {
     public sealed class Category : EntityBase
     {
-                
+
         public string Name { get; private set; }
-        
+
         public ICollection<Product> Products { get; set; }
 
         public Category(string name)
         {
             ValidateDomain(name);
 
+        }
+
+         public Category(int id, string name)
+        {
+            DomainExceptionValidation.When(id <= 0, "invalid Id value. Must be greater than zero");
+                
+            ValidateDomain(name);
+            Id = id;
         }
 
         public void Update(string name)
@@ -33,12 +41,9 @@ namespace CleanArch_Products.Domain.Entities
 
         }
 
-        public Category(int id, string name)
-        {
-            DomainExceptionValidation.When(id <= 0, "invalid Id value. Must be greater than zero");
-            ValidateDomain(name);
-            Id = id;
-        }
+       
+        
+        
 
         
     }

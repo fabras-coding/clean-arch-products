@@ -10,7 +10,7 @@ namespace CleanArch_Products.Application.Interfaces
     {
         Task<IEnumerable<CategoryDTO>> GetCategories();
         Task<CategoryDTO> GetById(int? id);
-        Task Add(CategoryDTO category);
+        Task Add(CreateCategoryDTO category);
         Task Update(CategoryDTO category);
         Task Remove(int? id);
     }

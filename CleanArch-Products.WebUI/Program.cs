@@ -23,10 +23,11 @@ app.UseAuthorization();
 
 
 
-//app.MapControllers();
+//app.MapControllers(); just use this if you are using attribute routing like [Route("[controller]")]
+// If you are using conventional routing, use the below code:
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Products}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
 app.Run();

@@ -17,15 +17,19 @@ namespace CleanArch_Products.Domain.Entities
         public Category Category { get; set; }
 
 
-        public Product(string name, string description, decimal price, int stock, string image)
+        public Product(string name, string description, decimal price, int stock, string image, int categoryId)
         {
             ValidateDomain(name, description, price, stock, image);
+            DomainExceptionValidation.When(categoryId <= 0, "Invalid id value. Must be greater than zero");
+            CategoryId = categoryId;
         }
+        
 
-        public Product(int id, string name, string description, decimal price, int stock, string image)
+        public Product(int id, string name, string description, decimal price, int stock, string image, int categoryId)
         {
             DomainExceptionValidation.When(id <= 0, "Invalid id value. Must be greater than zero");
             Id = id;
+            CategoryId = categoryId;
             ValidateDomain(name, description, price, stock, image);
         }
 

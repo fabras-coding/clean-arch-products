@@ -17,7 +17,7 @@ namespace CleanArch_Products.Domain.Tests
             var image = "image.png";
 
             // Act
-            var product = new Product(name, description, price, stock, image);
+            var product = new Product(name, description, price, stock, image,1);
 
             // Assert
             product.Name.Should().Be(name);
@@ -39,7 +39,7 @@ namespace CleanArch_Products.Domain.Tests
             var image = "image.png";
 
             // Act
-            var product = new Product(id, name, description, price, stock, image);
+            var product = new Product(id, name, description, price, stock, image, 1);
 
             // Assert
             product.Id.Should().Be(id);
@@ -51,7 +51,7 @@ namespace CleanArch_Products.Domain.Tests
         public void CreateProduct_WithInvalidName_ShouldThrowException(string invalidName)
         {
             // Arrange
-            Action act = () => new Product(invalidName, "Valid Description", 10, 1, "img.png");
+            Action act = () => new Product(invalidName, "Valid Description", 10, 1, "img.png", 1);
 
             // Act & Assert
             act.Should().Throw<DomainExceptionValidation>()
@@ -63,7 +63,7 @@ namespace CleanArch_Products.Domain.Tests
         {
             // Arrange
             var shortName = "AB";
-            Action act = () => new Product(shortName, "Valid Description", 10, 1, "img.png");
+            Action act = () => new Product(shortName, "Valid Description", 10, 1, "img.png",1);
 
             // Act & Assert
             act.Should().Throw<DomainExceptionValidation>()
@@ -76,7 +76,7 @@ namespace CleanArch_Products.Domain.Tests
         public void CreateProduct_WithInvalidDescription_ShouldThrowException(string invalidDescription)
         {
             // Arrange
-            Action act = () => new Product("Valid Name", invalidDescription, 10, 1, "img.png");
+            Action act = () => new Product("Valid Name", invalidDescription, 10, 1, "img.png", 1);
 
             // Act & Assert
             act.Should().Throw<DomainExceptionValidation>()
@@ -88,7 +88,7 @@ namespace CleanArch_Products.Domain.Tests
         {
             // Arrange
             var shortDescription = "Short";
-            Action act = () => new Product("Valid Name", shortDescription, 10, 1, "img.png");
+            Action act = () => new Product("Valid Name", shortDescription, 10, 1, "img.png",1);
 
             // Act & Assert
             act.Should().Throw<DomainExceptionValidation>()
@@ -99,7 +99,7 @@ namespace CleanArch_Products.Domain.Tests
         public void CreateProduct_WithNegativePrice_ShouldThrowException()
         {
             // Arrange
-            Action act = () => new Product("Valid Name", "Valid Description", -1, 1, "img.png");
+            Action act = () => new Product("Valid Name", "Valid Description", -1, 1, "img.png",1);
 
             // Act & Assert
             act.Should().Throw<DomainExceptionValidation>()
@@ -110,7 +110,7 @@ namespace CleanArch_Products.Domain.Tests
         public void CreateProduct_WithNegativeStock_ShouldThrowException()
         {
             // Arrange
-            Action act = () => new Product("Valid Name", "Valid Description", 10, -1, "img.png");
+            Action act = () => new Product("Valid Name", "Valid Description", 10, -1, "img.png",1);
 
             // Act & Assert
             act.Should().Throw<DomainExceptionValidation>()
@@ -122,7 +122,7 @@ namespace CleanArch_Products.Domain.Tests
         {
             // Arrange
             var longImage = new string('a', 251);
-            Action act = () => new Product("Valid Name", "Valid Description", 10, 1, longImage);
+            Action act = () => new Product("Valid Name", "Valid Description", 10, 1, longImage,1);
 
             // Act & Assert
             act.Should().Throw<DomainExceptionValidation>()
@@ -133,7 +133,7 @@ namespace CleanArch_Products.Domain.Tests
         public void CreateProduct_WithInvalidId_ShouldThrowException()
         {
             // Arrange
-            Action act = () => new Product(0, "Valid Name", "Valid Description", 10, 1, "img.png");
+            Action act = () => new Product(0, "Valid Name", "Valid Description", 10, 1, "img.png",1);
 
             // Act & Assert
             act.Should().Throw<DomainExceptionValidation>()
@@ -144,7 +144,7 @@ namespace CleanArch_Products.Domain.Tests
         public void UpdateProduct_WithValidParameters_ShouldUpdateProduct()
         {
             // Arrange
-            var product = new Product("Old Name", "Old Description", 5, 2, "old.png");
+            var product = new Product("Old Name", "Old Description", 5, 2, "old.png",1);
             var newName = "New Name";
             var newDescription = "New Description";
             var newPrice = 20m;
@@ -168,7 +168,7 @@ namespace CleanArch_Products.Domain.Tests
         public void UpdateProduct_WithInvalidCategoryId_ShouldThrowException()
         {
             // Arrange
-            var product = new Product("Name", "Description", 10, 1, "img.png");
+            var product = new Product("Name", "Description", 10, 1, "img.png", 1);
             var invalidCategoryId = 0;
 
             // Act

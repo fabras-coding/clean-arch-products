@@ -21,7 +21,7 @@ namespace CleanArch_Products.Application.Services
             _mapper = mapper;
         }
 
-        public async Task Add(CategoryDTO category)
+        public async Task Add(CreateCategoryDTO category)
         {
             var categoryEntity = _mapper.Map<Domain.Entities.Category>(category);
             await _categoryRepository.Create(categoryEntity);
