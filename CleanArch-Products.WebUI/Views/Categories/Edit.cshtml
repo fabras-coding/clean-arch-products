@@ -1,11 +1,11 @@
-@model CleanArch_Products.Application.DTOs.CreateCategoryDTO;
+@model CleanArch_Products.Application.DTOs.CategoryDTO;
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit Category";
 }
 
 <h1>@ViewData["Title"]</h1>
 
-<form asp-action="Create">
+<form asp-action="Edit" method="post">
     <div class="form-group">
 
         <div asp-validation-summary="All" class="text-danger"></div>
@@ -16,7 +16,7 @@
     </div>
 
 <div class="mt-3">
-    <button type="submit" class="btn btn-primary">Create</button>
+    <button type="submit" class="btn btn-primary">Edit</button>
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
 </form>
