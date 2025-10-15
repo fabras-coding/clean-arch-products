@@ -12,7 +12,7 @@ namespace CleanArch_Products.Application.Interfaces
         Task<ProductDTO> GetById(int? id);
         Task<ProductDTO> GetProductAndCategory(int? id);
         Task<IEnumerable<ProductDTO>> GetProductsByCategoryId(int? categoryId);
-        Task Add(ProductDTO product);
+        Task Add(CreateProductDTO product);
         Task Update(ProductDTO product);
         Task Remove(int? id);
 

@@ -13,6 +13,7 @@ namespace CleanArch_Products.Application.Mappings
         public DomainToDTOMappingProfile()
         {
             CreateMap<CreateCategoryDTO, Category>().ConstructUsing(c => new Category(c.Name));
+            CreateMap<CreateProductDTO, Product>().ConstructUsing(p => new Product(p.Name, p.Description, p.Price, p.Stock, p.Image, p.CategoryId));
 
             CreateMap<Category, CategoryDTO>().ReverseMap();
             CreateMap<Product, ProductDTO>().ReverseMap();

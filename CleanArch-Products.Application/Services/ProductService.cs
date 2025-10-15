@@ -27,7 +27,7 @@ namespace CleanArch_Products.Application.Services
         
         }
 
-        public async Task Add(ProductDTO product)
+        public async Task Add(CreateProductDTO product)
         {
             var productCommand = _mapper.Map<ProductCreateCommand>(product);
             await _mediator.Send(productCommand); 

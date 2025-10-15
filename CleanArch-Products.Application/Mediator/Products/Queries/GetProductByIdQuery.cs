@@ -12,7 +12,7 @@ namespace CleanArch_Products.Application.Mediator.Products.Queries
         public int Id { get; set; }
         public GetProductByIdQuery(int id)
         {
-            id = Id;
+            Id = id;
         }
     }
 }
