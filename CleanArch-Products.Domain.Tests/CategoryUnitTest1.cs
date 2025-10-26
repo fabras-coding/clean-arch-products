@@ -35,7 +35,7 @@ namespace CleanArch_Products.Domain.Tests
 
             // Assert
             category.Name.Should().Be(name);
-            category.Products.Should().BeNull();
+            
         }
 
         [Fact]

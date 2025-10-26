@@ -12,7 +12,6 @@ namespace CleanArch_Products.Domain.Entities
 
         public string Name { get; private set; }
 
-        public ICollection<Product> Products { get; set; }
 
         public Category(string name)
         {

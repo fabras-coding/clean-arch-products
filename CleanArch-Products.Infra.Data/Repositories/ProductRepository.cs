@@ -28,7 +28,8 @@ namespace CleanArch_Products.Infra.Data.Repositories
 
         public async Task<Product> GetByIdAsync(int? id)
         {
-            return _productRepository.Products.FindAsync(id).Result;
+             return _productRepository.Products.Include(c => c.Category)
+                .FirstOrDefaultAsync(p => p.Id == id).Result;
         }
 
         public Task<Product> GetProductAndCategoryAsync(int? id)
@@ -38,6 +39,7 @@ namespace CleanArch_Products.Infra.Data.Repositories
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 
+ 
         public async Task<IEnumerable<Product>> GetProductsAsync()
         {
             return _productRepository.Products.ToListAsync().Result;

@@ -31,8 +31,7 @@ namespace CleanArch_Products.Infra.Data.EntitiesConfiguration
                 .IsRequired()
                 .HasPrecision(10, 2);
 
-            builder.HasOne(p => p.Category)
-                .WithMany(c => c.Products)
+            builder.HasOne(p => p.Category).WithMany()                
                 .HasForeignKey(p => p.CategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
 

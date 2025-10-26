@@ -20,11 +20,7 @@ namespace CleanArch_Products.Infra.Data.EntitiesConfiguration
                 .IsRequired()
                 .HasMaxLength(100);
 
-            builder.HasMany(c => c.Products)
-                .WithOne(p => p.Category)
-                .HasForeignKey(p => p.CategoryId)
-                .OnDelete(DeleteBehavior.Restrict);
-
+            
             // Additional configurations can be added here
             builder.HasData(
                 new Category(1, "Material Escolar"),
