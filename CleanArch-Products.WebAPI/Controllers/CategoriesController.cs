@@ -23,55 +23,100 @@ namespace CleanArch_Products.WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CategoryDTO>>> Get()
         {
-            var categories = await _categoryService.GetCategories();
-            if (categories == null)
-                return NotFound("Categories not found");
+            try
+            {
+                var categories = await _categoryService.GetCategories();
+                if (categories == null)
+                    return NotFound("Categories not found");
 
-            return Ok(categories);
+                return Ok(categories);
+            }
+            catch (System.Exception ex)
+            {
+                //logger can be added here to log the exception details
+                return StatusCode(500, "Internal server error");
+
+            }
         }
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult<CategoryDTO>> Get(int id)
         {
-            var category = await _categoryService.GetById(id);
-            if (category == null)
-                return NotFound("Category not found");
+            try
+            {
+                var category = await _categoryService.GetById(id);
+                if (category == null)
+                    return NotFound("Category not found");
 
-            return Ok(category);
+                return Ok(category);
+            }
+            catch (System.Exception ex)
+            {
+                //logger can be added here to log the exception details
+                return StatusCode(500, "Internal server error");
+
+            }
         }
 
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] CreateCategoryDTO categoryDTO)
         {
-            if (categoryDTO == null)
-                return BadRequest("Invalid data.");
+            try
+            {
+                if (categoryDTO == null)
+                    return BadRequest("Invalid data.");
 
-            await _categoryService.Add(categoryDTO);
+                await _categoryService.Add(categoryDTO);
 
-            return Ok(categoryDTO);
+                return Ok(categoryDTO);
+            }
+            catch (System.Exception ex)
+            {
+                //logger can be added here to log the exception details
+                return StatusCode(500, "Internal server error");
+
+            }
         }
 
         [HttpPut]
         public async Task<ActionResult> Put([FromBody] CategoryDTO categoryDTO)
         {
-            if (categoryDTO == null)
-                return BadRequest("Invalid data.");
+            try
+            {
+                if (categoryDTO == null)
+                    return BadRequest("Invalid data.");
 
-            await _categoryService.Update(categoryDTO);
+                await _categoryService.Update(categoryDTO);
 
-            return Ok(categoryDTO);
+                return Ok(categoryDTO);
+            }
+            catch (System.Exception ex)
+            {
+                //logger can be added here to log the exception details
+                return StatusCode(500, "Internal server error");
+
+            }
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult> Delete (int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            var category = await _categoryService.GetById(id);
-            if (category == null)
-                return NotFound("Category not found.");
+            try
+            {
+                var category = await _categoryService.GetById(id);
+                if (category == null)
+                    return NotFound("Category not found.");
 
-            await _categoryService.Remove(id);
+                await _categoryService.Remove(id);
 
-            return Ok("Category removed successfully.");
+                return Ok("Category removed successfully.");
+            }
+            catch (System.Exception ex)
+            {
+                //logger can be added here to log the exception details
+                return StatusCode(500, "Internal server error");
+
+            }
         }
 
     }

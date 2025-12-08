@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CleanArch_Products.Application.DTOs;
 using CleanArch_Products.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArch_Products.WebAPI.Controllers
@@ -23,69 +24,120 @@ namespace CleanArch_Products.WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductDTO>>> Get()
         {
-            var products = await _productService.GetProducts();
-            if (products == null || !products.Any())
-                return NotFound();
+            try
+            {
+                var products = await _productService.GetProducts();
+                if (products == null || !products.Any())
+                    return NotFound();
 
-            return Ok(products);
+                return Ok(products);
+            }
+            catch (System.Exception ex)
+            {
+                //logger can be added here to log the exception details
+                return StatusCode(500, "Internal server error");
+            }
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductDTO>> Get(int id)
         {
-            var product = await _productService.GetById(id);
-            if (product == null)
-                return NotFound();
+            try
+            {
+                var product = await _productService.GetById(id);
+                if (product == null)
+                    return NotFound();
 
-            return Ok(product);
+                return Ok(product);
+            }
+            catch (System.Exception exception)
+            {
+                //logger can be added here to log the exception details
+                return StatusCode(500, "Internal server error");
+            }
         }
 
         [HttpGet("category/{id}")]
         public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProductsByCategoryId(int id)
         {
-            var products = await _productService.GetProductsByCategoryId(id);
-            if (products == null)
-                return NotFound();
+            try
+            {
+                var products = await _productService.GetProductsByCategoryId(id);
+                if (products == null)
+                    return NotFound();
 
-            return Ok(products);
+                return Ok(products);
+            }
+            catch (System.Exception ex)
+            {
+                //logger can be added here to log the exception details
+                return StatusCode(500, "Internal server error");
+            }
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] CreateProductDTO productDTO)
         {
-            if (ModelState.IsValid)
+            try
             {
-                await _productService.Add(productDTO);
-                return Ok();
+
+                if (ModelState.IsValid)
+                {
+                    await _productService.Add(productDTO);
+                    return Ok(productDTO);
+                }
+                else
+                    return BadRequest(ModelState);
             }
-            else
-                return BadRequest(ModelState);
+            catch (System.Exception exception)
+            {
+                //logger can be added here to log the exception details
+                return StatusCode(500, "Internal server error");
+
+            }
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] ProductDTO productDTO)
         {
-            if (id != productDTO.Id)
-                return BadRequest();
-
-            if (ModelState.IsValid)
+            try
             {
-                await _productService.Update(productDTO);
-                return Ok();
+                if (id != productDTO.Id)
+                    return BadRequest();
+
+                if (ModelState.IsValid)
+                {
+                    await _productService.Update(productDTO);
+                    return Ok();
+                }
+                else
+                    return BadRequest(ModelState);
             }
-            else
-                return BadRequest(ModelState);
+            catch (System.Exception ex)
+            {
+                //logger can be added here to log the exception details
+                return StatusCode(500, "Internal server error");
+            }
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var product = await _productService.GetById(id);
-            if (product == null)
-                return NotFound();
+            try
+            {
+                var product = await _productService.GetById(id);
+                if (product == null)
+                    return NotFound();
 
-            await _productService.Remove(id);
-            return Ok();
+                await _productService.Remove(id);
+                return Ok();
+            }
+            catch (System.Exception ex)
+            {
+                //logger can be added here to log the exception details
+                return StatusCode(500, "Internal server error");
+            }
         }
 
     }
