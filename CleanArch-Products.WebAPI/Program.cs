@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Security.Claims;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +33,18 @@ builder.Services.AddAuthentication("Bearer")
             )
         };
     });
+
+//setting up Serilog with Datadog sink
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.DatadogLogs(
+        apiKey: builder.Configuration["Datadog:ApiKey"],
+        source: "products-webapi",
+        service: "products-webapi",
+        host: Environment.MachineName,
+        tags: new[] { "env:development", "project:clean-arch-products" }
+    ).CreateLogger();
+
+builder.Host.UseSerilog();
 
 
 var app = builder.Build();

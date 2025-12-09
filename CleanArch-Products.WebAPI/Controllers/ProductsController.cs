@@ -16,9 +16,11 @@ namespace CleanArch_Products.WebAPI.Controllers
     {
 
         private readonly IProductService _productService;
-        public ProductsController(IProductService productService)
+        private readonly ILogger<ProductsController> _logger;
+        public ProductsController(IProductService productService, ILogger<ProductsController> logger)
         {
             _productService = productService;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -85,14 +87,18 @@ namespace CleanArch_Products.WebAPI.Controllers
                 if (ModelState.IsValid)
                 {
                     await _productService.Add(productDTO);
+                    _logger.LogInformation("Product created successfully: {@Product}", productDTO);
                     return Ok(productDTO);
                 }
                 else
+                {    
+                    _logger.LogWarning("Invalid product data received: {@ModelState}", ModelState);
                     return BadRequest(ModelState);
+                }
             }
             catch (System.Exception exception)
             {
-                //logger can be added here to log the exception details
+                _logger.LogError(exception, "Error occurred while creating product: {@Product}", productDTO);
                 return StatusCode(500, "Internal server error");
 
             }
