@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CleanArch_Products.Application.Interfaces;
 using CleanArch_Products.Application.Mappings;
+using CleanArch_Products.Application.Messaging;
 using CleanArch_Products.Application.Services;
 using CleanArch_Products.Domain.Interfaces;
 using CleanArch_Products.Infra.Data.Context;
@@ -33,6 +34,11 @@ namespace CleanArch_Products.Infra.IoC
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             
+            services.AddSingleton<IMessageBus>(provider=>
+            {
+                var bootstrapServers = configuration.GetValue<string>("Kafka:BootstrapServers");
+                return new Utils.Messaging.KafkaMessageBus(bootstrapServers);
+            });
 
             var myHandlers = AppDomain.CurrentDomain.Load("CleanArch-Products.Application");
             services.AddMediatR(myHandlers);

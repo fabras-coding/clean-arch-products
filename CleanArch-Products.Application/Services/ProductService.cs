@@ -7,6 +7,7 @@ using CleanArch_Products.Application.DTOs;
 using CleanArch_Products.Application.Interfaces;
 using CleanArch_Products.Application.Mediator.Products.Commands;
 using CleanArch_Products.Application.Mediator.Products.Queries;
+using CleanArch_Products.Application.Messaging;
 using CleanArch_Products.Domain.Entities;
 using CleanArch_Products.Domain.Interfaces;
 using MediatR;
@@ -19,11 +20,13 @@ namespace CleanArch_Products.Application.Services
         
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
+        private readonly IMessageBus _messageBus;
 
-        public ProductService(IMapper mapper, IMediator mediator)
+        public ProductService(IMapper mapper, IMediator mediator, IMessageBus messageBus)
         {
             _mapper = mapper;
             _mediator = mediator;
+            _messageBus = messageBus;
         
         }
 
@@ -31,6 +34,7 @@ namespace CleanArch_Products.Application.Services
         {
             var productCommand = _mapper.Map<ProductCreateCommand>(product);
             await _mediator.Send(productCommand); 
+            await _messageBus.PublishAsync("product-created-topic", product);
             
         }
 

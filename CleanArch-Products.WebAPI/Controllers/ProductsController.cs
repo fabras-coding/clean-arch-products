@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CleanArch_Products.Application.DTOs;
 using CleanArch_Products.Application.Interfaces;
+using CleanArch_Products.Application.Messaging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +18,7 @@ namespace CleanArch_Products.WebAPI.Controllers
 
         private readonly IProductService _productService;
         private readonly ILogger<ProductsController> _logger;
+
         public ProductsController(IProductService productService, ILogger<ProductsController> logger)
         {
             _productService = productService;

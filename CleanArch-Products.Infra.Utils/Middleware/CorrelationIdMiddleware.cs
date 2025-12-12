@@ -2,11 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Azure.Core;
 using Microsoft.AspNetCore.Http;
 using Serilog.Context;
 
-namespace CleanArch_Products.Infra.IoC.Utils
+namespace CleanArch_Products.Infra.Utils
 {
     public class CorrelationIdMiddleware
     {

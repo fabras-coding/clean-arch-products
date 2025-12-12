@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  datadog-agent:
+    image: datadog/agent:latest
+    environment:
+      - DD_API_KEY=your_api_key_here
+      - DD_SITE=datadoghq.com
+      - DD_LOGS_ENABLED=true
+      - DD_CONTAINER_COLLECT_ALL=true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - "8126:8126"

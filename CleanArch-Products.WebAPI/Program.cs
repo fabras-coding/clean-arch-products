@@ -4,7 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Security.Claims;
 using Serilog;
-using CleanArch_Products.Infra.IoC.Utils;
+using CleanArch_Products.Infra.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
