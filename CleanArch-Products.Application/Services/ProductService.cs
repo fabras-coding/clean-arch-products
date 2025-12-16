@@ -34,7 +34,7 @@ namespace CleanArch_Products.Application.Services
         {
             var productCommand = _mapper.Map<ProductCreateCommand>(product);
             await _mediator.Send(productCommand); 
-            await _messageBus.PublishAsync("product-created-topic", product);
+            await _messageBus.PublishAsync("product-created", product);
             
         }
 

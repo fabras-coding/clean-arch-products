@@ -36,8 +36,25 @@ namespace CleanArch_Products.Infra.IoC
             
             services.AddSingleton<IMessageBus>(provider=>
             {
-                var bootstrapServers = configuration.GetValue<string>("Kafka:BootstrapServers");
-                return new Utils.Messaging.KafkaMessageBus(bootstrapServers);
+
+                var messageBusProvider = configuration.GetValue<string>("MessageBus:Provider");
+
+                return messageBusProvider switch
+                {
+                    "Kafka" => new Utils.Messaging.KafkaMessageBus(configuration.GetValue<string>("Kafka:BootstrapServers")),
+                    "SQS" => new Utils.Messaging.SQSMessageBus(
+                        configuration.GetValue<string>("AWS.SQS:ServiceURL"),
+                        configuration.GetValue<string>("AWS.SQS:QueueName"),
+                        configuration.GetValue<string>("AWS.SQS:Region"),
+                        configuration.GetValue<string>("AWS.SQS:AccessKey"),
+                        configuration.GetValue<string>("AWS.SQS:SecretKey")),
+
+                    _ => throw new Exception("Invalid message bus provider configuration. Check appsettings.json"),
+
+
+                };
+                
+                
             });
 
             var myHandlers = AppDomain.CurrentDomain.Load("CleanArch-Products.Application");

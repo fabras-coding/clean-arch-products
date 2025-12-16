@@ -7,6 +7,6 @@ namespace CleanArch_Products.Application.Messaging
 {
     public interface IMessageBus
     {
-        Task PublishAsync<T>(string topic, T message);
+        Task PublishAsync<T>(string destination, T message);
     }
 }

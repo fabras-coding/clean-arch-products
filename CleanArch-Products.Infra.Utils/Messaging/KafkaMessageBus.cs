@@ -14,16 +14,31 @@ namespace CleanArch_Products.Infra.Utils.Messaging
 
         public KafkaMessageBus(string bootstrapServers)
         {
-            var config = new ProducerConfig { BootstrapServers = bootstrapServers };
+            var config = new ProducerConfig 
+            { 
+                BootstrapServers = bootstrapServers,
+                MessageSendMaxRetries = 3,
+                RetryBackoffMs = 100,
+                RetryBackoffMaxMs = 1000
+
+            
+            };
             _producer = new ProducerBuilder<Null, string>(config).Build();
         }
 
         public async Task PublishAsync<T>(string topic, T message)
         {
-            
-            var payload = JsonSerializer.Serialize(message);
-            await _producer.ProduceAsync(topic, new Message<Null, string> {Value = payload});
-
+            try
+            {
+                
+                var payload = JsonSerializer.Serialize(message);
+                await _producer.ProduceAsync(topic, new Message<Null, string> {Value = payload});
+    
+            }
+            catch (KafkaException ex)
+            {
+                throw ex;
+            }
         }
     }
 }

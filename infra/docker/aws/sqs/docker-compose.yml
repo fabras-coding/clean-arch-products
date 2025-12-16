@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  localstack:
+    image: localstack/localstack:latest
+    container_name: localstack-sqs
+    ports:
+      - "4566:4566"   # Porta principal para todos os serviços
+      - "4571:4571"   # Porta opcional para edge
+    environment:
+      - SERVICES=sqs          # Habilita apenas o SQS
+      - DEBUG=1               # Log detalhado
+      - DEFAULT_REGION=us-east-1
+      - DATA_DIR=/tmp/localstack/data  # Persiste dados entre reinícios
+    volumes:
+      - "./localstack-data:/tmp/localstack"   # Volume local para persistência
+      - "/var/run/docker.sock:/var/run/docker.sock"
