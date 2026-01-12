@@ -17,6 +17,18 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructureAPI(builder.Configuration);
 builder.Services.AddControllers();
 
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp",policy =>
+    {
+        policy
+              .WithOrigins("http://localhost:3000")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer("Bearer", options =>
     {
@@ -37,6 +49,7 @@ builder.Services.AddAuthentication("Bearer")
 
 //setting up Serilog with Datadog sink
 Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
     .WriteTo.DatadogLogs(
         apiKey: builder.Configuration["Datadog:ApiKey"],
         source: "products-webapi",
@@ -50,6 +63,7 @@ builder.Host.UseSerilog();
 
 var app = builder.Build();
 
+app.UseCors("AllowReactApp");
 
 app.UseMiddleware<CorrelationIdMiddleware>();
 
