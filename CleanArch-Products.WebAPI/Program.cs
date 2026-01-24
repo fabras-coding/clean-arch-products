@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Security.Claims;
 using Serilog;
 using CleanArch_Products.Infra.Utils;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+// Services
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -17,15 +17,15 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructureAPI(builder.Configuration);
 builder.Services.AddControllers();
 
-
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowReactApp",policy =>
+    options.AddPolicy("AllowReactApp", policy =>
     {
         policy
-              .WithOrigins("http://localhost:3000")
-              .AllowAnyHeader()
-              .AllowAnyMethod();
+            .WithOrigins("http://localhost:3000") // ajuste se necessário
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+            // .AllowCredentials(); // só se precisar de cookies
     });
 });
 
@@ -34,7 +34,7 @@ builder.Services.AddAuthentication("Bearer")
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ClockSkew = TimeSpan.Zero,// remove delay of token when expire
+            ClockSkew = TimeSpan.Zero,
             ValidateIssuer = true,
             ValidateAudience = true,
             ValidateLifetime = true,
@@ -45,9 +45,37 @@ builder.Services.AddAuthentication("Bearer")
                 System.Text.Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])
             )
         };
+
+        options.Events = new JwtBearerEvents
+        {
+            OnChallenge = context =>
+            {
+                // evita o comportamento padrão
+                context.HandleResponse();
+
+                // Garantir CORS header como fallback (apenas se necessário)
+                // Se UseCors estiver corretamente aplicado, isso não será necessário,
+                // mas adicionamos para garantir que o navegador não bloqueie a resposta.
+                context.Response.Headers.Append("Access-Control-Allow-Origin", "http://localhost:3000");
+
+                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                context.Response.ContentType = "application/json";
+
+                var payload = JsonSerializer.Serialize(new { message = "Unauthorized" });
+                return context.Response.WriteAsync(payload);
+            },
+
+            OnAuthenticationFailed = context =>
+            {
+                Console.WriteLine("Authentication failed: " + context.Exception?.Message);
+                return Task.CompletedTask;
+            }
+        };
     });
 
-//setting up Serilog with Datadog sink
+builder.Services.AddAuthorization();
+
+// Serilog (mantém seu setup)
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .WriteTo.DatadogLogs(
@@ -60,14 +88,18 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog();
 
-
 var app = builder.Build();
 
+// Ordem do pipeline IMPORTA
 app.UseCors("AllowReactApp");
 
+// middleware custom (correlation id) pode ficar depois do CORS
 app.UseMiddleware<CorrelationIdMiddleware>();
 
-// Configure the HTTP request pipeline.
+// Autenticação e autorização devem estar no pipeline
+app.UseAuthentication();
+app.UseAuthorization();
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
@@ -76,9 +108,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.MapControllers();
 
-
 app.Run();
-
-
