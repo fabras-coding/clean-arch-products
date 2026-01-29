@@ -42,7 +42,10 @@ namespace CleanArch_Products.Infra.Utils.Messaging
 
             try
             {
-                await _sqsClient.SendMessageAsync(sendMessageRequest);
+                var result = await _sqsClient.SendMessageAsync(sendMessageRequest);
+                if (result.HttpStatusCode == System.Net.HttpStatusCode.OK)
+                    Console.WriteLine($"Message sent to SQS with ID: {result.MessageId}");
+                
             }
             catch (AmazonSQSException ex)
             {

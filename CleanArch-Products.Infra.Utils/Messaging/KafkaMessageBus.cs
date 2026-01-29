@@ -32,7 +32,9 @@ namespace CleanArch_Products.Infra.Utils.Messaging
             {
                 
                 var payload = JsonSerializer.Serialize(message);
-                await _producer.ProduceAsync(topic, new Message<Null, string> {Value = payload});
+                var result= await _producer.ProduceAsync(topic, new Message<Null, string> {Value = payload});
+                if (result.Status == PersistenceStatus.Persisted)
+                Console.WriteLine($"Message delivered to {result.TopicPartitionOffset}");
     
             }
             catch (KafkaException ex)
