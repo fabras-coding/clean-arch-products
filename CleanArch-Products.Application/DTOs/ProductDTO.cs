@@ -32,6 +32,7 @@ namespace CleanArch_Products.Application.DTOs
         public int CategoryId { get; set; }
 
         public Category? Category { get; set; }
-        
+
+        public string InformationDocument { get; set; }      
     }
 }

@@ -16,6 +16,8 @@ namespace CleanArch_Products.Domain.Entities
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
+        public string InformationDocument { get; set; }
+
 
         public Product(string name, string description, decimal price, int stock, string image, int categoryId)
         {

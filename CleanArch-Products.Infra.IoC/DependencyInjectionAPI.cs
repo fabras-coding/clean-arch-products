@@ -33,6 +33,8 @@ namespace CleanArch_Products.Infra.IoC
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddSingleton<ProductAIService>();
             
             services.AddSingleton<IMessageBus>(provider=>
             {

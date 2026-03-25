@@ -31,6 +31,12 @@ namespace CleanArch_Products.Infra.Data.EntitiesConfiguration
                 .IsRequired()
                 .HasPrecision(10, 2);
 
+            builder.Property(p => p.Stock)
+                .IsRequired();
+
+            builder.Property(p => p.InformationDocument)
+                .HasMaxLength(2050);
+
             builder.HasOne(p => p.Category).WithMany()                
                 .HasForeignKey(p => p.CategoryId)
                 .OnDelete(DeleteBehavior.Restrict);

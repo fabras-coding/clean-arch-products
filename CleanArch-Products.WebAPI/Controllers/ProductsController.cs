@@ -2,10 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using CleanArch_Products.Application.DTOs;
 using CleanArch_Products.Application.Interfaces;
 using CleanArch_Products.Application.Messaging;
+using CleanArch_Products.Application.Services;
+using CleanArch_Products.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,12 +20,14 @@ namespace CleanArch_Products.WebAPI.Controllers
     {
 
         private readonly IProductService _productService;
+        private readonly ProductAIService _productAIService;
         private readonly ILogger<ProductsController> _logger;
 
-        public ProductsController(IProductService productService, ILogger<ProductsController> logger)
+        public ProductsController(IProductService productService, ILogger<ProductsController> logger, ProductAIService productAIService)
         {
             _productService = productService;
             _logger = logger;
+            _productAIService = productAIService;
         }
 
         [HttpGet]
@@ -148,5 +153,26 @@ namespace CleanArch_Products.WebAPI.Controllers
             }
         }
 
+        [HttpPost("{id}/ask")]
+        public async Task<ActionResult<string>> AskProductQuestion(int id, [FromBody] QuestionDTO question)
+        {
+            try
+            {
+                
+                var product = await _productService.GetById(id);
+                if (product == null)
+                    return NotFound();
+
+                var answer = await _productAIService.AskProductQuestion(product, question.Question);
+                return Ok(answer);
+            }
+            catch (System.Exception ex)
+            {
+                //logger can be added here to log the exception details
+                _logger.LogError(ex, "Error occurred while asking product question for product id: {ProductId} with question: {Question}", id, question.Question);    
+                return StatusCode(500, "Internal server error");
+            }
+
+        }
     }
 }

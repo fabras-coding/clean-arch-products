@@ -17,12 +17,14 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructureAPI(builder.Configuration);
 builder.Services.AddControllers();
 
+
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp", policy =>
     {
         policy
-            .WithOrigins("http://localhost:3000") // ajuste se necessário
+            .WithOrigins("http://localhost:3000","http://localhost:4200" ) // ajuste se necessário
             .AllowAnyHeader()
             .AllowAnyMethod();
             // .AllowCredentials(); // só se precisar de cookies
@@ -56,7 +58,9 @@ builder.Services.AddAuthentication("Bearer")
                 // Garantir CORS header como fallback (apenas se necessário)
                 // Se UseCors estiver corretamente aplicado, isso não será necessário,
                 // mas adicionamos para garantir que o navegador não bloqueie a resposta.
-                context.Response.Headers.Append("Access-Control-Allow-Origin", "http://localhost:3000");
+
+                context.Response.Headers.Append("Access-Control-Allow-Origin", "http://localhost:3000" );
+                context.Response.Headers.Append("Access-Control-Allow-Origin", "http://localhost:4200" );
 
                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                 context.Response.ContentType = "application/json";
