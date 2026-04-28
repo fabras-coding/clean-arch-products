@@ -27,11 +27,11 @@ namespace CleanArch_Products.Infra.IoC
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
                 b => b.MigrationsAssembly(typeof(Data.Context.ApplicationDbContext).Assembly.FullName)));
 
-            services.AddScoped<IProductRepository, Data.Repositories.ProductRepository>();
-            services.AddScoped<ICategoryRepository, Data.Repositories.CategoryRepository>();
+            services.AddTransient<IProductRepository, Data.Repositories.ProductRepository>();
+            services.AddTransient<ICategoryRepository, Data.Repositories.CategoryRepository>();
 
-            services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<ICategoryService, CategoryService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddSingleton<ProductAIService>();
