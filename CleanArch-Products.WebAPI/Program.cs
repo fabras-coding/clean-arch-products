@@ -6,6 +6,8 @@ using System.Security.Claims;
 using Serilog;
 using CleanArch_Products.Infra.Utils;
 using System.Text.Json;
+using CleanArch_Products.Infra.Utils.Middleware;
+using Confluent.Kafka;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -79,6 +81,13 @@ builder.Services.AddAuthentication("Bearer")
 
 builder.Services.AddAuthorization();
 
+builder.Services.AddHealthChecks()
+    .AddRedis(builder.Configuration.GetConnectionString("redis")!)
+    .AddSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")!)
+    .AddKafka(new ProducerConfig { BootstrapServers = builder.Configuration["Kafka:BootstrapServers"] });
+    
+
+
 // Serilog (mantém seu setup)
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -94,11 +103,15 @@ builder.Host.UseSerilog();
 
 var app = builder.Build();
 
+
+app.MapHealthChecks("/health");
+
 // Ordem do pipeline IMPORTA
 app.UseCors("AllowReactApp");
 
 // middleware custom (correlation id) pode ficar depois do CORS
 app.UseMiddleware<CorrelationIdMiddleware>();
+app.UseMiddleware<IdempotencyMiddleware>();
 
 // Autenticação e autorização devem estar no pipeline
 app.UseAuthentication();

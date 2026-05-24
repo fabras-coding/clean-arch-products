@@ -16,5 +16,6 @@ namespace CleanArch_Products.Application.Mediator.Products.Commands
         public string Image { get; set; }
         public int Stock { get; set; }
         public int CategoryId { get; set; }
+        public string InformationDocument { get; set;}
     }
 }

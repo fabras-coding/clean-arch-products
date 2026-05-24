@@ -19,31 +19,31 @@ namespace CleanArch_Products.Domain.Entities
         public string InformationDocument { get; set; }
 
 
-        public Product(string name, string description, decimal price, int stock, string image, int categoryId)
+        public Product(string name, string description, decimal price, int stock, string image, int categoryId, string informationDocument)
         {
-            ValidateDomain(name, description, price, stock, image);
+            ValidateDomain(name, description, price, stock, image, informationDocument);
             DomainExceptionValidation.When(categoryId <= 0, "Invalid id value. Must be greater than zero");
             CategoryId = categoryId;
         }
         
 
-        public Product(int id, string name, string description, decimal price, int stock, string image, int categoryId)
+        public Product(int id, string name, string description, decimal price, int stock, string image, int categoryId, string informationDocument)
         {
             DomainExceptionValidation.When(id <= 0, "Invalid id value. Must be greater than zero");
             Id = id;
             CategoryId = categoryId;
-            ValidateDomain(name, description, price, stock, image);
+            ValidateDomain(name, description, price, stock, image, informationDocument);
         }
 
-        public void Update(string name, string description, decimal price, int stock, string image, int categoryId)
+        public void Update(string name, string description, decimal price, int stock, string image, int categoryId, string informationDocument)
         {
-            ValidateDomain(name, description, price, stock, image);
+            ValidateDomain(name, description, price, stock, image, informationDocument);
             DomainExceptionValidation.When(categoryId <= 0, "Invalid id value. Must be greater than zero");
             CategoryId = categoryId;
 
         }
 
-        private void ValidateDomain(string name, string description, decimal price, int stock, string image)
+        private void ValidateDomain(string name, string description, decimal price, int stock, string image, string informationDocument)
         {
             DomainExceptionValidation.When(string.IsNullOrEmpty(name), "Invalid name. Name is required.");
             DomainExceptionValidation.When(name.Length < 3, "Invalid name, too short. The minimum is 3 characters.");
@@ -52,12 +52,14 @@ namespace CleanArch_Products.Domain.Entities
             DomainExceptionValidation.When(price < 0, "Invalid value. Price must be greater than zero.");
             DomainExceptionValidation.When(stock < 0, "Invalid value. Stock must be greater than zero.");
             DomainExceptionValidation.When(image?.Length > 250, "Invalid image name, too long. The maximum is 250 characters.");
+            DomainExceptionValidation.When(string.IsNullOrEmpty(informationDocument), "Invalid information document. Information document is required.");
 
             Name = name;
             Description = description;
             Price = price;
             Stock = stock;
             Image = image;
+            InformationDocument = informationDocument;
 
 
         }

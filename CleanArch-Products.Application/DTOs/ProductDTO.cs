@@ -33,6 +33,8 @@ namespace CleanArch_Products.Application.DTOs
 
         public Category? Category { get; set; }
 
+        [DisplayName("Information Document")]
+        [Required(ErrorMessage = "The Information Document field is required")]
         public string InformationDocument { get; set; }      
     }
 }

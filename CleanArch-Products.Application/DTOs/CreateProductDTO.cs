@@ -25,6 +25,8 @@ namespace CleanArch_Products.Application.DTOs
         [Required(ErrorMessage = "The Category field is required")]
         public int CategoryId { get; set; }
 
+        [DisplayName("Information Document")]
+        [Required(ErrorMessage = "The Information Document field is required")]
         public string InformationDocument { get; set; }
         
     }

@@ -1,0 +1,26 @@
+#build stage
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+WORKDIR /clean-arch
+
+#copy project files
+COPY CleanArch-Products.WebAPI/*.csproj ./CleanArch-Products.WebAPI/
+COPY CleanArch-Products.Application/*.csproj ./CleanArch-Products.Application/
+COPY CleanArch-Products.Domain/*.csproj ./CleanArch-Products.Domain/
+COPY CleanArch-Products.Infra.Data/*.csproj ./CleanArch-Products.Infra.Data/
+COPY CleanArch-Products.Infra.IoC/*.csproj ./CleanArch-Products.Infra.IoC/
+COPY CleanArch-Products.Infra.Utils/*.csproj ./CleanArch-Products.Infra.Utils/
+
+RUN dotnet restore CleanArch-Products.WebAPI/CleanArch-Products.WebAPI.csproj
+
+#copy and publish
+COPY . .  
+WORKDIR /clean-arch/CleanArch-Products.WebAPI
+RUN dotnet publish -c Release -o /app/publish
+
+# runtime
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
+WORKDIR /app
+COPY --from=build /app/publish .
+ENV ASPNETCORE_URLS=http://+:80
+EXPOSE 80
+ENTRYPOINT ["dotnet", "CleanArch-Products.WebAPI.dll"]

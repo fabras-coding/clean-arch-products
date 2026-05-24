@@ -29,7 +29,7 @@ namespace CleanArch_Products.Application.Mediator.Products.Handlers
                 throw new ApplicationException($"Product with id {request.Id} not found");
             }
 
-            product.Update(request.Name, request.Description, request.Price, request.Stock, request.Image, request.CategoryId);
+            product.Update(request.Name, request.Description, request.Price, request.Stock, request.Image, request.CategoryId, request.InformationDocument);
             return await _productRepository.UpdateAsync(product);
 
         }

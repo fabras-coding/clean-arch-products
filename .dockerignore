@@ -1,0 +1,4 @@
+infra/
+**/bin/
+**/obj/
+**/*.user

@@ -43,7 +43,7 @@ namespace CleanArch_Products.WebAPI.Controllers
             }
             catch (System.Exception ex)
             {
-                //logger can be added here to log the exception details
+                _logger.LogError(ex, "Error occurred while retrieving products");
                 return StatusCode(500, "Internal server error");
             }
         }
