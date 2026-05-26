@@ -13,10 +13,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
-using Microsoft.Extensions.Caching.StackExchangeRedis;
 using CleanArch_Products.Application.Idempotency;
 using CleanArch_Products.Infra.Utils.Idempotency;
-using Amazon.Runtime.Internal.Util;
 using Microsoft.Extensions.Logging;
 
 
@@ -50,7 +48,7 @@ namespace CleanArch_Products.Infra.IoC
 
                 return messageBusProvider switch
                 {
-                    "Kafka" => new Utils.Messaging.KafkaMessageBus(configuration.GetValue<string>("Kafka:BootstrapServers"), logger),
+                    "Kafka" => new Utils.Messaging.KafkaMessageBus(configuration.GetValue<string>("Kafka:BootstrapServers") ?? throw new InvalidOperationException("Kafka bootstrap servers configuration is not configured."), logger),
                     "SQS" => new Utils.Messaging.SQSMessageBus(
                         configuration.GetValue<string>("AWS.SQS:ServiceURL"),
                         configuration.GetValue<string>("AWS.SQS:QueueName"),
@@ -72,11 +70,11 @@ namespace CleanArch_Products.Infra.IoC
 
             services.AddStackExchangeRedisCache(options =>
             {
-                options.Configuration = configuration.GetConnectionString("redis");
+                options.Configuration = configuration.GetConnectionString("redis") ?? throw new InvalidOperationException("Redis connection string is not configured.");
                 options.InstanceName = "CleanArchProductsCache_";
             });
 
-            services.AddSingleton<IConnectionMultiplexer>(sp => ConnectionMultiplexer.Connect(configuration.GetConnectionString("redis")));
+            services.AddSingleton<IConnectionMultiplexer>(sp => ConnectionMultiplexer.Connect(configuration.GetConnectionString("redis") ?? throw new InvalidOperationException("Redis connection string is not configured.")));
             services.AddSingleton<IIdempotencyStore, RedisIdempotencyStore>();
 
             return services;

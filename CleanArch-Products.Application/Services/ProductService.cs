@@ -72,7 +72,7 @@ namespace CleanArch_Products.Application.Services
         {
             var cachedProducts = await _cache.GetStringAsync(ALL_PRODUCTS_CACHE_KEY);
             if(cachedProducts is not null)
-                return JsonSerializer.Deserialize<IEnumerable<ProductDTO>>(cachedProducts);
+                return JsonSerializer.Deserialize<IEnumerable<ProductDTO>>(cachedProducts) ?? throw new ApplicationException("Failed to deserialize cached products.");
             
             
             var productsQuery = new GetProductsQuery();
